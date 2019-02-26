@@ -5,6 +5,10 @@ const fs                = require('fs');
 const bot               = new Discord.Client()
 bot.commands            = new Discord.Collection();
 
+const http              = require("http");
+const port              = process.env.PORT || 3000;
+http.createServer().listen(port);
+
 var servers = {};
 
 const commandFolders = fs.readdirSync('./commands');
@@ -70,4 +74,4 @@ bot.on('message', (message) => {
 
 }); //FINISH BOT MESSAGE
 
-bot.login(process.env.BOT_TOKEN);
+bot.login(process.env.BOT_TOKEN || token);
