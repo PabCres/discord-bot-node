@@ -14,6 +14,9 @@ module.exports = {
 			return message.reply('Tenes que estar en el canal de voz, idiota');
 		}
 
-        dispatcher.end();
+        voiceChannel.leave();
+        
+        message.channel.send('Desonecta3');
+		
     }
 }

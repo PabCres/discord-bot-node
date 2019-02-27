@@ -15,7 +15,7 @@ module.exports = {
 		}
 
 		voiceChannel.join().then(() => {
-            message.reply('Conecta3');
+            message.channel.send('Conecta3');
 		});
     }
 }

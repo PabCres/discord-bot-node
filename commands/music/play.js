@@ -17,18 +17,45 @@ module.exports = {
 		}
 
 		voiceChannel.join().then(connection => {
-			switch (args[0]) {
-				case String(args[0].match(/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm)):
-					const stream = ytdl(args[0], { filter: 'audioonly' });
-					const dispatcher = connection.playStream(stream);
-		
-					dispatcher.on('end', () => voiceChannel.leave());
-				break;
-				
-				default:
-					console.log("error");
-				break;
+			// const path = args.join(' ');
+
+			// if (!queue) {
+			// 	var queue = [];
+			// 	queue.push(path);
+			// 	console.log("no habia queue", queue);
+			// }
+			// else {
+			// 	queue.push(path);
+			// 	console.log("no habia queue", queue);
+			// }
+			
+			// console.log(queue);
+
+
+			const regexyt = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
+			const regexfile = /^(?:[A-Z]\:|\.|(?:file\:\/\/|\\\\)[^\\\/\:\*\?\<\>\"\|]+)(?:(?:\\|\/)[^\\\/\:\*\?\<\>\"\|]+)*(?:\\|\/)?$/gm;
+
+			if (args[0] == args[0].match(regexyt)) {
+				console.log("it's a youtube video");
+				const stream = ytdl(args[0], { filter: 'audioonly' });
+				const dispatcher = connection.playStream(stream);
+	
+				dispatcher.on('end', () => {
+					setTimeout(() => {
+						voiceChannel.leave()
+					}, 180000);
+				});
 			}
+			else if (args[0] == args[0].match(regexfile)) {
+				console.log("it's a file path");
+				const dispatcher = connection.playFile(path);
+				dispatcher.on('end', () => {
+					setTimeout(() => {
+						voiceChannel.leave()
+					}, 180000);
+				});
+			}
+			
 		});
     }
 }

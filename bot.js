@@ -38,7 +38,7 @@ bot.on('message', (message) => {
 	const args = message.content.slice(prefix.length).split(/ +/);
 	const cmdName = args.shift().toLowerCase(); //shift() borra el primer elemento [0] del array al que se lo aplica
 
-	console.log(cmdName, args);
+	//console.log(cmdName, args);
 
 	//Dynamically executing commands 
 	const cmd = bot.commands.get(cmdName) 
