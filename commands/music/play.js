@@ -17,12 +17,11 @@ module.exports = {
 		}
 
 		voiceChannel.join().then(connection => {
-			var dispatcher;
 			switch (args[0]) {
 				case String(args[0].match(/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm)):
-					console.log("yt");
-					const stream = ytdl(`${args[0]}`, { filter: 'audioonly' });
-					dispatcher = connection.playStream(stream);
+					const stream = ytdl(args[0], { filter: 'audioonly' });
+					const dispatcher = connection.playStream(stream);
+		
 					dispatcher.on('end', () => voiceChannel.leave());
 				break;
 				
