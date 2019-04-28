@@ -11,7 +11,7 @@ module.exports = {
         const { voiceChannel } = message.member;
 
 		if (!voiceChannel) {
-			return message.reply('Tenes que estar en el canal de voz, idiota');
+			return message.reply('Tenes que estar en el canal de voz');
 		}
 
         voiceChannel.leave();

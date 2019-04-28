@@ -10,6 +10,7 @@ const port              = process.env.PORT || 3000;
 http.createServer().listen(port);
 
 var servers = {};
+var queue = [];
 
 const commandFolders = fs.readdirSync('./commands');
 console.log(commandFolders);
@@ -27,11 +28,11 @@ for (const folder of commandFolders) {
 
 bot.on('ready', () => {
     console.log('Hi, I\'m ',bot.user.tag, 'and I\'m online');
-	bot.user.setActivity("un rico hentai", { type: "WATCHING" });
+	bot.user.setActivity("2 girls 1 cup", { type: "WATCHING" });
 	// bot.channels.get('323306433326350336').send('El puto de rythm no me hace caso', { tts:true });
 });
 
-bot.on('message', (message) => {
+bot.on('message', async (message) => {
 
 	if (!message.content.startsWith(prefix) || message.author.bot ) return;
 
@@ -41,8 +42,7 @@ bot.on('message', (message) => {
 	//console.log(cmdName, args);
 
 	//Dynamically executing commands 
-	const cmd = bot.commands.get(cmdName) 
-				|| bot.commands.find(c => c.aliases && c.aliases.includes(cmdName));
+	const cmd = bot.commands.get(cmdName) || bot.commands.find(c => c.aliases && c.aliases.includes(cmdName));
 
 	if (!cmd) return;
 
@@ -65,7 +65,13 @@ bot.on('message', (message) => {
 	}
 
 	try {
-		cmd.execute(message, args);
+		if (cmd.name == "play" || cmd.name == "test") {
+			cmd.execute(message, args, queue);
+		}
+		else {
+			cmd.execute(message, args);
+		}
+		
 	} 
 	catch (error) {
 		console.error(error);
