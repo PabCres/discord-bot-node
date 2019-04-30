@@ -49,8 +49,8 @@ module.exports = {
 				console.log("it's a youtube video");
 				const stream = ytdl(song, { filter: 'audioonly' });
 				dispatcher = connection.playStream(stream);
-				dispatcher.setBitrate(128);
 				dispatcher.on('end', () => {
+					console.log("Termino la cancion");
 					queue.shift();
 					console.log("la siguiente cancion es ",queue[0]);
 					play(queue[0]);
@@ -59,7 +59,6 @@ module.exports = {
 			else if (regexfile.test(song)) {
 				console.log("it's a file path");
 				const dispatcher = connection.playFile(song);
-				dispatcher.setBitrate(128);
 				dispatcher.on('end', () => {
 					queue.shift();
 					console.log("la siguiente cancion es ",queue[0]);
