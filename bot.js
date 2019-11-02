@@ -9,8 +9,7 @@ const http              = require("http");
 const port              = process.env.PORT || 3000;
 http.createServer().listen(port);
 
-var servers = {};
-var queue = [];
+var queue = new Map();
 
 const commandFolders = fs.readdirSync('./commands');
 console.log(commandFolders);
@@ -29,7 +28,7 @@ for (const folder of commandFolders) {
 bot.on('ready', () => {
     console.log('Hi, I\'m ',bot.user.tag, 'and I\'m online');
 	bot.user.setActivity("2 girls 1 cup", { type: "WATCHING" });
-	// bot.channels.get('323306433326350336').send('El puto de rythm no me hace caso', { tts:true });
+	//bot.channels.get('598277558567436292').send('El puto de rythm no me hace caso', { tts:true });
 });
 
 bot.on('message', async (message) => {
@@ -65,13 +64,7 @@ bot.on('message', async (message) => {
 	}
 
 	try {
-		if (cmd.name == "play" || cmd.name == "test") {
-			cmd.execute(message, args, queue);
-		}
-		else {
-			cmd.execute(message, args);
-		}
-		
+		cmd.execute(message, args, queue);
 	} 
 	catch (error) {
 		console.error(error);

@@ -10,7 +10,7 @@ module.exports = {
 	execute(message, args) {
 		const data = [];
 		const { commands } = message.client;
-		console.log(message.client);
+		//console.log(message.client);
 
 		if (!args.length) {
 			data.push('Estos son los nombres de todos los comandos que hay:');

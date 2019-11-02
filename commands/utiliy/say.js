@@ -9,6 +9,6 @@ module.exports = {
     execute(message, args) {
         let botmessage = args.join(" ");
         message.delete().catch((err) => { return err; });
-        message.channel.send(botmessage);
+        message.channel.send(botmessage, { tts:true });
     }
 }
