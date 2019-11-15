@@ -64,13 +64,13 @@ module.exports = {
 				console.log("it's a youtube video");
 				// const stream = ytdl(song);
 				// console.log(stream);
-				const dispatcher = serverQueue.connection.playStream(ytdl(song,{filter: 'audioonly', quality: 'highestaudio', highWaterMark: 1<<25 }), {highWaterMark: 10});
+				const dispatcher = serverQueue.connection.playStream(ytdl(song,{ filter: (format) => ['251'] }), { volume: false });
 				dispatcher.on('end', reason => {
 					if (reason === 'Stream is not generating quickly enough.') console.log('Song ended.');
 					else console.log(reason, "razooon");
 					serverQueue.songs.shift();
 					play(guild, serverQueue.songs[0]);
-				})
+				});
 				dispatcher.on('error', error => console.error(error));
 				dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
 
