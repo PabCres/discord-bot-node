@@ -28,7 +28,6 @@ for (const folder of commandFolders) {
 bot.on('ready', () => {
     console.log('Hi, I\'m ',bot.user.tag, 'and I\'m online');
 	bot.user.setActivity("2 girls 1 cup", { type: "WATCHING" });
-	//bot.channels.get('598277558567436292').send('El puto de rythm no me hace caso', { tts:true });
 });
 
 bot.on('message', async (message) => {

@@ -62,8 +62,6 @@ module.exports = {
 
 			if (regexyt.test(song)) {
 				console.log("it's a youtube video");
-				// const stream = ytdl(song);
-				// console.log(stream);
 				const dispatcher = serverQueue.connection.playStream(ytdl(song,{ filter: (format) => ['251'] }), { volume: false });
 				dispatcher.on('end', reason => {
 					if (reason === 'Stream is not generating quickly enough.') console.log('Song ended.');
